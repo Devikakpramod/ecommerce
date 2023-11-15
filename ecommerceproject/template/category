@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+     {% if category %}
+         {{ category.description|truncatewords:155 }}
+     { % else %}
+          Welcome to OURSHOPE where you can buys different items.....
+     {% endif %}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{ category.name }} - OUR SHOPE
+    { % else %}
+          See our new Collections -OUR SHOPE
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+{% if category %}
+
+<div>
+    <div>
+        <p><a href="{% url 'shop:allProdCat' %}">Our Product Collections </a></p>
+    </div>
+</div>
+{% endif %}
+<div>
+    {% if category %}
+       <img src="{{category.image.url}}" alt="{{category.name}}">
+</div>
+   <br>
+<div>
+      <h1>{{category.name}}</h1>
+      <p>{{category.description}}</p>
+</div>
+{% else %}
+<div>
+<img src="{% static 'img/banner.png' %}" alt="Our Products">
+</div>
+<br>
+<div>
+    <h1>Our Products Collections</h1>
+    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>
+</div>
+    {% endif %}
+<div>
+    <div>
+        {% for product in products %}
+        <div>
+            <div>
+                <a href=""><img src="{{product.image.url}}" alt="{{product.name}}"></a>
+                <div>
+                    <h4>{{product.name}}</h4>
+                    <p>{{product.price}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
